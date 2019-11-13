@@ -1,14 +1,12 @@
+import { Eventing, Callback } from './Eventing';
+
 interface UserProps {
   name?: string;
   age?: number;
 }
 
-type Callback = () => void;
-
-type CallbacksMap = { [event: string]: Callback[] };
-
 export class User {
-  private callbacks: CallbacksMap = {};
+  private eventing: Eventing = new Eventing();
 
   constructor(private data: UserProps) {}
 
@@ -21,14 +19,10 @@ export class User {
   };
 
   on = (event: string, callback: Callback): void => {
-    this[event] = this.callbacksFor(event).concat(callback);
+    this.eventing.on(event, callback);
   };
 
   trigger = (event: string): void => {
-    this.callbacksFor(event).forEach(callback => callback());
-  };
-
-  private callbacksFor = (event: string): Callback[] => {
-    return this.callbacks[event] || [];
+    this.eventing.trigger(event);
   };
 }
