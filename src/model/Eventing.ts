@@ -5,7 +5,7 @@ type CallbacksMap = { [event: string]: Callback[] };
 export class Eventing {
   private callbacks: CallbacksMap = {};
 
-  on = (event: string, callback: Callback): void => {
+  register = (event: string, callback: Callback): void => {
     this[event] = this.callbacksFor(event).concat(callback);
   };
 
