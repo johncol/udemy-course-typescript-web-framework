@@ -1,5 +1,6 @@
 import { Eventing, Callback } from './Eventing';
 import { Sync } from './Sync';
+import { Attributes } from './Attributes';
 
 interface UserProps {
   id?: number;
@@ -10,15 +11,18 @@ interface UserProps {
 export class User {
   private eventing: Eventing = new Eventing();
   private sync: Sync<UserProps> = new Sync('http://localhost:3000/users');
+  private attributes: Attributes<UserProps>;
 
-  constructor(private data: UserProps) {}
+  constructor(data: UserProps) {
+    this.attributes = new Attributes(data);
+  }
 
-  get = (prop: string): string | number => {
-    return this.data[prop];
+  get = <K extends keyof UserProps>(prop: K): UserProps[K] => {
+    return this.attributes.get(prop);
   };
 
   set = (props: UserProps): void => {
-    Object.assign(this.data, props);
+    this.attributes.set(props);
   };
 
   on = (event: string, callback: Callback): void => {
@@ -30,11 +34,12 @@ export class User {
   };
 
   fetch = (): Promise<UserProps> => {
-    return this.sync.fetch(this.data.id).then(this.saveAndReturn);
+    const id: number = this.attributes.get('id');
+    return this.sync.fetch(id).then(this.saveAndReturn);
   };
 
   save = (): Promise<UserProps> => {
-    return this.sync.save(this.data).then(this.saveAndReturn);
+    return this.sync.save(this.attributes.data).then(this.saveAndReturn);
   };
 
   private saveAndReturn = (props: UserProps): UserProps => {
