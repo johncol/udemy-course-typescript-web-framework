@@ -1,5 +1,5 @@
 import { Eventing, Callback } from './Eventing';
-import axios, { AxiosResponse } from 'axios';
+import { Sync } from './Sync';
 
 interface UserProps {
   id?: number;
@@ -9,6 +9,7 @@ interface UserProps {
 
 export class User {
   private eventing: Eventing = new Eventing();
+  private sync: Sync<UserProps> = new Sync('http://localhost:3000/users');
 
   constructor(private data: UserProps) {}
 
@@ -29,23 +30,15 @@ export class User {
   };
 
   fetch = (): Promise<UserProps> => {
-    return axios.get(`http://localhost:3000/users/${this.get('id')}`).then(this.savePropsAndReturn);
+    return this.sync.fetch(this.data.id).then(this.saveAndReturn);
   };
 
   save = (): Promise<UserProps> => {
-    const id: number = this.get('id') as number;
-    const alreadyExists: boolean = !!id;
-
-    if (alreadyExists) {
-      return axios.put(`http://localhost:3000/users/${this.get('id')}`, this.data).then(this.savePropsAndReturn);
-    }
-
-    return axios.post(`http://localhost:3000/users`, this.data).then(this.savePropsAndReturn);
+    return this.sync.save(this.data).then(this.saveAndReturn);
   };
 
-  private savePropsAndReturn = (response: AxiosResponse<UserProps>): UserProps => {
-    const { data } = response;
-    this.set(data);
-    return data;
+  private saveAndReturn = (props: UserProps): UserProps => {
+    this.set(props);
+    return props;
   };
 }
