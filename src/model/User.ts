@@ -1,6 +1,7 @@
 import { Eventing, Callback } from './Eventing';
 import { Sync } from './Sync';
 import { Attributes } from './Attributes';
+import { Events } from './Events';
 
 interface UserProps {
   id?: number;
@@ -17,24 +18,28 @@ export class User {
     this.attributes = new Attributes(data);
   }
 
-  get get() {
-    return this.attributes.get;
-  }
-
-  get set() {
-    return this.attributes.set;
-  }
-
   get on() {
     return this.eventing.register;
   }
 
-  get trigger() {
-    return this.eventing.trigger;
+  get data() {
+    return this.attributes.data;
   }
+
+  get get() {
+    return this.attributes.get;
+  }
+
+  set = (update: UserProps): void => {
+    this.attributes.set(update);
+    this.eventing.trigger(Events.change);
+  };
 
   fetch = (): Promise<UserProps> => {
     const id: number = this.attributes.get('id');
+    if (id == null) {
+      throw new Error('No ID defined to fetch the user');
+    }
     return this.sync.fetch(id).then(this.saveAndReturn);
   };
 
