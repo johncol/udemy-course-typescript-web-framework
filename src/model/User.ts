@@ -35,20 +35,22 @@ export class User {
     this.eventing.trigger(Events.change);
   };
 
-  fetch = (): Promise<UserProps> => {
+  fetch = (): Promise<void> => {
     const id: number = this.attributes.get('id');
     if (id == null) {
       throw new Error('No ID defined to fetch the user');
     }
-    return this.sync.fetch(id).then(this.saveAndReturn);
+    return this.sync
+      .fetch(id)
+      .then((props: UserProps) => this.set(props))
+      .catch(() => this.eventing.trigger(Events.error));
   };
 
-  save = (): Promise<UserProps> => {
-    return this.sync.save(this.attributes.data).then(this.saveAndReturn);
-  };
-
-  private saveAndReturn = (props: UserProps): UserProps => {
-    this.set(props);
-    return props;
+  save = (): Promise<void> => {
+    return this.sync
+      .save(this.attributes.data)
+      .then((props: UserProps) => this.set(props))
+      .then(() => this.eventing.trigger(Events.save))
+      .catch(() => this.eventing.trigger(Events.error));
   };
 }
