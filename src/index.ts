@@ -1,7 +1,5 @@
 import { User } from './model/User';
 
-console.log('hello world!');
-
 const user: User = new User({ name: 'John', age: 30 });
 
 user.save().then(() => {

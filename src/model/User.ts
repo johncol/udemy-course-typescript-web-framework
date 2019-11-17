@@ -17,21 +17,21 @@ export class User {
     this.attributes = new Attributes(data);
   }
 
-  get = <K extends keyof UserProps>(prop: K): UserProps[K] => {
-    return this.attributes.get(prop);
-  };
+  get get() {
+    return this.attributes.get;
+  }
 
-  set = (props: UserProps): void => {
-    this.attributes.set(props);
-  };
+  get set() {
+    return this.attributes.set;
+  }
 
-  on = (event: string, callback: Callback): void => {
-    this.eventing.register(event, callback);
-  };
+  get on() {
+    return this.eventing.register;
+  }
 
-  trigger = (event: string): void => {
-    this.eventing.trigger(event);
-  };
+  get trigger() {
+    return this.eventing.trigger;
+  }
 
   fetch = (): Promise<UserProps> => {
     const id: number = this.attributes.get('id');
