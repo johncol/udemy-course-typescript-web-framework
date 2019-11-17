@@ -1,5 +1,5 @@
 import { Eventing } from './Eventing';
-import { Sync } from './Sync';
+import { ApiSync } from './ApiSync';
 import { Attributes } from './Attributes';
 import { Model } from './Model';
 
@@ -12,7 +12,7 @@ interface UserProps {
 export class User extends Model<UserProps> {
   constructor(data: UserProps) {
     const eventing: Eventing = new Eventing();
-    const sync: Sync<UserProps> = new Sync<UserProps>('http://localhost:3000/users');
+    const sync: ApiSync<UserProps> = new ApiSync<UserProps>('http://localhost:3000/users');
     const attributes: Attributes<UserProps> = new Attributes(data);
     super(eventing, sync, attributes);
   }

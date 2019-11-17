@@ -4,7 +4,7 @@ interface MayHaveId {
   id?: number;
 }
 
-export class Sync<T extends MayHaveId> {
+export class ApiSync<T extends MayHaveId> {
   constructor(private url: string) {}
 
   fetch = (id: number): Promise<T> => {
