@@ -5,9 +5,7 @@ const displayUserState = (user: User): void => {
   const div: Element = document.createElement('div');
   div.innerHTML = `
     <h1>User changed:</h1>
-    <pre>
-      <code>${JSON.stringify(user.data, null, 2)}</code>
-    </pre>
+    <pre><code>${JSON.stringify(user.data, null, 2)}</code></pre>
   `;
   document.body.appendChild(div);
 };
