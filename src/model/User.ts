@@ -10,10 +10,10 @@ interface UserProps {
 }
 
 export class User extends Model<UserProps> {
-  constructor(data: UserProps) {
+  static build(data: UserProps): User {
     const eventing: Eventing = new Eventing();
     const sync: ApiSync<UserProps> = new ApiSync<UserProps>('http://localhost:3000/users');
     const attributes: Attributes<UserProps> = new Attributes(data);
-    super(eventing, sync, attributes);
+    return new User(eventing, sync, attributes);
   }
 }
