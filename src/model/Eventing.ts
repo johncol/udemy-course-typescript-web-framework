@@ -6,7 +6,7 @@ export class Eventing {
   private callbacks: CallbacksMap = {};
 
   register = (event: string, callback: Callback): void => {
-    this[event] = this.callbacksFor(event).concat(callback);
+    this.callbacks[event] = this.callbacksFor(event).concat(callback);
   };
 
   trigger = (event: string): void => {
