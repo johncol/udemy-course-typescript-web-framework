@@ -1,0 +1,19 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: 400;
+}
+
+pre {
+  padding: 20px;
+  border: 1px dotted #ccc;
+  background-color: #fafafa;
+}
+
+code {
+  font-family: 'Inconsolata', monospace;
+}
