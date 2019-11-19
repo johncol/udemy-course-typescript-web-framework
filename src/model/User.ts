@@ -4,7 +4,7 @@ import { Attributes } from './Attributes';
 import { Model } from './Model';
 import { Collection } from './Collection';
 
-interface UserProps {
+export interface UserProps {
   id?: number;
   name?: string;
   age?: number;

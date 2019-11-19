@@ -14,7 +14,7 @@ export class Collection<T, U> {
 
   on = this.eventing.register;
 
-  fetch = (): Collection<T, U> => {
+  fetch = (): void => {
     axios
       .get(this.url)
       .then((response: AxiosResponse<U[]>) => response.data)
@@ -23,7 +23,5 @@ export class Collection<T, U> {
         this._data = items;
         this.eventing.trigger(Events.fetch);
       });
-
-    return this;
   };
 }

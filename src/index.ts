@@ -1,5 +1,6 @@
-import { User } from './model/User';
+import { User, UserProps } from './model/User';
 import { Events } from './model/Events';
+import { Collection } from './model/Collection';
 
 const displayUser = (user: User): void => {
   const div: Element = document.createElement('div');
@@ -10,8 +11,8 @@ const displayUser = (user: User): void => {
   document.body.appendChild(div);
 };
 
-const collection = User.collection();
-
-collection.fetch().on(Events.fetch, () => {
+const collection: Collection<User, UserProps> = User.collection();
+collection.fetch();
+collection.on(Events.fetch, () => {
   collection.data.forEach(displayUser);
 });
