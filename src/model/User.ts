@@ -1,8 +1,8 @@
-import { Eventing } from './Eventing';
+import { Eventing } from './../framework/model/Eventing';
+import { Attributes } from './../framework/model/Attributes';
+import { Model } from './../framework/model/Model';
+import { Collection } from './../framework/model/Collection';
 import { ApiSync } from './ApiSync';
-import { Attributes } from './Attributes';
-import { Model } from './Model';
-import { Collection } from './Collection';
 
 export interface UserProps {
   id?: number;

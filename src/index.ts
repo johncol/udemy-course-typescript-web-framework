@@ -1,6 +1,6 @@
 import { User, UserProps } from './model/User';
-import { Events } from './model/Events';
-import { Collection } from './model/Collection';
+import { Events } from './framework/model/Events';
+import { Collection } from './framework/model/Collection';
 
 const displayUser = (user: User): void => {
   const div: Element = document.createElement('div');
