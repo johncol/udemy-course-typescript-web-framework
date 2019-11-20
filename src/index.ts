@@ -1,6 +1,7 @@
 import { User, UserProps } from './model/User';
 import { Events } from './framework/model/Events';
 import { Collection } from './framework/model/Collection';
+import { UserForm } from './view/UserForm';
 
 const displayUser = (user: User): void => {
   const div: Element = document.createElement('div');
@@ -16,3 +17,5 @@ collection.fetch();
 collection.on(Events.fetch, () => {
   collection.data.forEach(displayUser);
 });
+
+new UserForm(document.getElementById('user-form')).render();
