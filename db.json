@@ -1,4 +1,10 @@
 {
   "resources": [],
-  "users": []
+  "users": [
+    {
+      "id": 1,
+      "name": "Michael Jackson",
+      "age": 51
+    }
+  ]
 }
