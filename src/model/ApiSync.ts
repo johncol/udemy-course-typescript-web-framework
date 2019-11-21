@@ -1,8 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-interface MayHaveId {
-  id?: number;
-}
+import { MayHaveId } from './../framework/model/Model';
 
 export class ApiSync<T extends MayHaveId> {
   constructor(private url: string) {}

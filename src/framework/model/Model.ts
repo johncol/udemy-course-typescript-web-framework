@@ -16,7 +16,11 @@ interface DataHandler<T> {
   data: T;
 }
 
-export class Model<T extends { id?: number }> {
+export interface MayHaveId {
+  id?: number;
+}
+
+export class Model<T extends MayHaveId> {
   constructor(
     private eventsHandler: EventsHandler,
     private backendHandler: BackendHandler<T>,
