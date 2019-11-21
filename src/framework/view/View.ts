@@ -2,9 +2,10 @@ import { Model, MayHaveId } from './../model/Model';
 import { Events } from './../model/Events';
 
 export type EventsMap = { [key: string]: () => void };
+export type HtmlTemplate = string;
 
 export abstract class View<T extends Model<U>, U extends MayHaveId> {
-  abstract template(): string;
+  abstract template(): HtmlTemplate;
   abstract eventsMap(): EventsMap;
 
   constructor(protected parent: Element, protected model: T) {

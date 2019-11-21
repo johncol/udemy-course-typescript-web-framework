@@ -1,8 +1,8 @@
-import { View, EventsMap } from './../framework/view/View';
+import { View, EventsMap, HtmlTemplate } from './../framework/view/View';
 import { UserProps, User } from './../model/User';
 
 export class UserForm extends View<User, UserProps> {
-  template = (): string => {
+  template = (): HtmlTemplate => {
     return `
       <form class="user-form" autocomplete="off">
         <h1>User Form</h1>
