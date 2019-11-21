@@ -5,15 +5,6 @@ export class UserForm extends View<User, UserProps> {
   template = (): HtmlTemplate => {
     return `
       <form class="user-form" autocomplete="off">
-        <h1>User Form</h1>
-        <div class="user-form__row">
-          <div>
-            <span class="user-form__attr">Name: </span>
-            <span class="user-form__value">${this.model.get('name')}</span><br />
-            <span class="user-form__attr">Age: </span>
-            <span class="user-form__value">${this.model.get('age')}</span>
-          </div>
-        </div>
         <div class="user-form__row">
           <input name="name" class="user-form__input" placeholder="Name.." />
           <button type="button" data-role="update-name">Update</button>
