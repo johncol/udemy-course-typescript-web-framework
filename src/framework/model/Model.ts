@@ -41,10 +41,11 @@ export class Model<T extends { id?: number }> {
   };
 
   fetch = (): Promise<void> => {
-    const id: number = this.datahandler.get('id');
-    if (id == null) {
+    const id: number | undefined = this.datahandler.get('id');
+    if (id === undefined) {
       throw new Error('No ID defined to fetch the user');
     }
+
     return this.backendHandler
       .fetch(id)
       .then((props: T) => this.set(props))
