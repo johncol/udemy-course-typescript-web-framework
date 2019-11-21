@@ -1,20 +1,28 @@
 import { User } from './../model/User';
+import { Events } from '../framework/model/Events';
 
 type EventsMap = { [key: string]: () => void };
 
 export class UserForm {
-  constructor(private parent: Element, private model: User) {}
+  constructor(private parent: Element, private model: User) {
+    this.listenToModelChanges();
+  }
 
   render = (): void => {
     const template: HTMLTemplateElement = document.createElement('template');
     template.innerHTML = this.template();
     this.bindEvents(template.content);
+    this.parent.innerHTML = '';
     this.parent.append(template.content);
+  };
+
+  private listenToModelChanges = (): void => {
+    this.model.on(Events.change, this.render);
   };
 
   private template = (): string => {
     return `
-      <div class="user-form">
+      <form class="user-form" autocomplete="off">
         <h1>User Form</h1>
         <div class="user-form__row">
           <div>
@@ -25,13 +33,13 @@ export class UserForm {
           </div>
         </div>
         <div class="user-form__row">
-          <input class="user-form__input" placeholder="Name.." />
-          <button data-role="save">Save</button>
+          <input name="name" class="user-form__input" placeholder="Name.." />
+          <button type="button" data-role="update-name">Update</button>
         </div>
         <div class="user-form__row">
-          <button data-role="random-age">Random Age</button>
+          <button type="button" data-role="random-age">Random Age</button>
         </div>
-      </div>
+      </form>
     `;
   };
 
@@ -47,16 +55,20 @@ export class UserForm {
 
   private eventsMap = (): EventsMap => {
     return {
-      'click:button[data-role="save"]': this.onSaveButtonClick,
+      'click:button[data-role="update-name"]': this.onSaveButtonClick,
       'click:button[data-role="random-age"]': this.onSetRandomAgeButtonClick,
     };
   };
 
   private onSaveButtonClick = (): void => {
-    console.log('Button Clicked!');
+    const input: Element = this.parent.querySelector('input[name="name"]');
+    const name: string = (input as HTMLInputElement).value;
+    if (name && name.trim().length > 0) {
+      this.model.set({ name: name.trim() });
+    }
   };
 
   private onSetRandomAgeButtonClick = (): void => {
-    console.log('Random Age Button Clicked!');
+    this.model.setRandomAge();
   };
 }
