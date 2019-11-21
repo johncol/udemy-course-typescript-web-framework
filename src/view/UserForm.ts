@@ -61,7 +61,11 @@ export class UserForm {
   };
 
   private onSaveButtonClick = (): void => {
-    const input: Element = this.parent.querySelector('input[name="name"]');
+    const input: Element | null = this.parent.querySelector('input[name="name"]');
+    if (!input) {
+      throw new Error('input[name="name"] not found');
+    }
+
     const name: string = (input as HTMLInputElement).value;
     if (name && name.trim().length > 0) {
       this.model.set({ name: name.trim() });
