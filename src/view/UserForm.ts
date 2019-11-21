@@ -7,10 +7,13 @@ export class UserForm extends RegionlessView<User, UserProps> {
     return `
       <form class="user-form" autocomplete="off">
         <div class="user-form__row">
-          <input name="name" class="user-form__input" placeholder="Name.." />
-          <button type="button" data-role="update-name">Update</button>
+          <input name="name" class="user-form__input" placeholder="Name" value="${this.model.get('name')}" />
+        </div>
+        <div class="user-form__row">
+          <input name="country" class="user-form__input" placeholder="Country" value="${this.model.get('country')}" />
         </div>
         <div class="user-form__row user-form__row--right-aligned">
+          <button type="button" data-role="update-fields">Update</button>
           <button type="button" data-role="random-age">Random Age</button>
         </div>
         <div class="user-form__row user-form__row--right-aligned">
@@ -22,22 +25,16 @@ export class UserForm extends RegionlessView<User, UserProps> {
 
   eventsMap = (): EventsMap => {
     return {
-      'click:button[data-role="update-name"]': this.onUpdateNameButtonClick,
+      'click:button[data-role="update-fields"]': this.onUpdateButtonClick,
       'click:button[data-role="random-age"]': this.onSetRandomAgeButtonClick,
       'click:button[data-role="save"]': this.onSaveButtonClick,
     };
   };
 
-  private onUpdateNameButtonClick = (): void => {
-    const input: Element | null = this.parent.querySelector('input[name="name"]');
-    if (!input) {
-      throw new Error('input[name="name"] not found');
-    }
-
-    const name: string = (input as HTMLInputElement).value;
-    if (name && name.trim().length > 0) {
-      this.model.set({ name: name.trim() });
-    }
+  private onUpdateButtonClick = (): void => {
+    const name: string = this.getValueOf('name');
+    const country: string = this.getValueOf('country');
+    this.model.set({ name, country });
   };
 
   private onSetRandomAgeButtonClick = (): void => {
@@ -46,5 +43,13 @@ export class UserForm extends RegionlessView<User, UserProps> {
 
   private onSaveButtonClick = (): void => {
     this.model.save();
+  };
+
+  private getValueOf = (field: string): string => {
+    const inputElement: Element | null = this.parent.querySelector(`input[name="${field}"]`);
+    if (!inputElement) {
+      throw new Error(`input[name="${field}"] not found`);
+    }
+    return (inputElement as HTMLInputElement).value;
   };
 }

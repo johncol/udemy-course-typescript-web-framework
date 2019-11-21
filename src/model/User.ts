@@ -8,6 +8,7 @@ export interface UserProps {
   id?: number;
   name?: string;
   age?: number;
+  country?: string;
 }
 
 const usersUrl: string = 'http://localhost:3000/users';

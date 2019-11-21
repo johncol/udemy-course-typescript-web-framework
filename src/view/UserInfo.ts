@@ -6,13 +6,17 @@ export class UserInfo extends SimpleView<User, UserProps> {
   template = (): HtmlTemplate => {
     return `
       <div>
-        <h1>User</h1>
+        <h1>${this.model.get('name')}</h1>
         <div class="user-form__row">
           <div>
-            <span class="user-form__attr">Name: </span>
-            <span class="user-form__value">${this.model.get('name')}</span><br />
-            <span class="user-form__attr">Age: </span>
-            <span class="user-form__value">${this.model.get('age')}</span>
+            <div>
+              <span class="user-form__attr">Age: </span>
+              <span class="user-form__value">${this.model.get('age')}</span>
+            </div>
+            <div>
+              <span class="user-form__attr">Country: </span>
+              <span class="user-form__value">${this.model.get('country')}</span>
+            </div>
           </div>
         </div>
       </div>

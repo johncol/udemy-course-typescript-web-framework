@@ -42,6 +42,10 @@ button:focus {
   border-color: #666;
 }
 
+button + button {
+  margin-left: 10px;
+}
+
 .user-card {
   max-width: 400px;
   margin: 0 auto;
