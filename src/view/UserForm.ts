@@ -14,15 +14,23 @@ export class UserForm {
 
   private template = (): string => {
     return `
-      <div>
+      <div class="user-form">
         <h1>User Form</h1>
-        <div>
-          <span>Name: </span><span>${this.model.get('name')}</span><br />
-          <span>Age: </span><span>${this.model.get('age')}</span>
+        <div class="user-form__row">
+          <div>
+            <span class="user-form__attr">Name: </span>
+            <span class="user-form__value">${this.model.get('name')}</span><br />
+            <span class="user-form__attr">Age: </span>
+            <span class="user-form__value">${this.model.get('age')}</span>
+          </div>
         </div>
-        <input />
-        <button data-role="save">Save</button>
-        <button data-role="random-age">Random Age</button>
+        <div class="user-form__row">
+          <input class="user-form__input" placeholder="Name.." />
+          <button data-role="save">Save</button>
+        </div>
+        <div class="user-form__row">
+          <button data-role="random-age">Random Age</button>
+        </div>
       </div>
     `;
   };

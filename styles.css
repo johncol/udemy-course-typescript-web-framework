@@ -1,11 +1,12 @@
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
+  font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #555;
+  font-size: 16px;
 }
 
 h1 {
   font-size: 30px;
-  font-weight: 400;
+  font-weight: 300;
 }
 
 pre {
@@ -16,4 +17,53 @@ pre {
 
 code {
   font-family: 'Inconsolata', monospace;
+}
+
+input {
+  font-family: inherit;
+  padding: 5px;
+  border: 1px solid #aaa;
+  font-size: 16px;
+}
+
+button {
+  border-radius: 0;
+  border: 1px solid #aaa;
+  font-family: inherit;
+  padding: 5px 30px;
+  cursor: pointer;
+  font-size: 16px;
+  color: inherit;
+}
+
+input:focus,
+button:focus {
+  outline: none;
+  border-color: #666;
+}
+
+.user-form__attr {
+  display: inline-block;
+  width: 100px;
+}
+
+.user-form__value {
+  color: #777;
+}
+
+.user-form__row {
+  display: flex;
+  width: 400px;
+  margin: 10px 0;
+  padding-top: 10px;
+  border-top: 1px solid #aaa;
+}
+
+.user-form__row:last-child {
+  justify-content: flex-end;
+}
+
+.user-form__input {
+  margin-right: 10px;
+  flex: 1;
 }
