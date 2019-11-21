@@ -59,7 +59,7 @@ button:focus {
   border-top: 1px solid #aaa;
 }
 
-.user-form__row:last-child {
+.user-form__row--right-aligned {
   justify-content: flex-end;
 }
 

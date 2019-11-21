@@ -18,8 +18,11 @@ export class UserForm extends View<User, UserProps> {
           <input name="name" class="user-form__input" placeholder="Name.." />
           <button type="button" data-role="update-name">Update</button>
         </div>
-        <div class="user-form__row">
+        <div class="user-form__row user-form__row--right-aligned">
           <button type="button" data-role="random-age">Random Age</button>
+        </div>
+        <div class="user-form__row user-form__row--right-aligned">
+          <button type="button" data-role="save">Save</button>
         </div>
       </form>
     `;
@@ -27,12 +30,13 @@ export class UserForm extends View<User, UserProps> {
 
   eventsMap = (): EventsMap => {
     return {
-      'click:button[data-role="update-name"]': this.onSaveButtonClick,
+      'click:button[data-role="update-name"]': this.onUpdateNameButtonClick,
       'click:button[data-role="random-age"]': this.onSetRandomAgeButtonClick,
+      'click:button[data-role="save"]': this.onSaveButtonClick,
     };
   };
 
-  private onSaveButtonClick = (): void => {
+  private onUpdateNameButtonClick = (): void => {
     const input: Element | null = this.parent.querySelector('input[name="name"]');
     if (!input) {
       throw new Error('input[name="name"] not found');
@@ -46,5 +50,9 @@ export class UserForm extends View<User, UserProps> {
 
   private onSetRandomAgeButtonClick = (): void => {
     this.model.setRandomAge();
+  };
+
+  private onSaveButtonClick = (): void => {
+    this.model.save();
   };
 }
