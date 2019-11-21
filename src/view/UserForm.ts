@@ -1,7 +1,8 @@
-import { View, EventsMap, HtmlTemplate } from './../framework/view/View';
+import { EventsMap, HtmlTemplate } from './../framework/view/View';
 import { UserProps, User } from './../model/User';
+import { RegionlessView } from '../framework/view/RegionlessView';
 
-export class UserForm extends View<User, UserProps> {
+export class UserForm extends RegionlessView<User, UserProps> {
   template = (): HtmlTemplate => {
     return `
       <form class="user-form" autocomplete="off">

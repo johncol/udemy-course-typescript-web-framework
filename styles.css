@@ -42,9 +42,11 @@ button:focus {
   border-color: #666;
 }
 
-.user-form {
+.user-card {
   max-width: 400px;
   margin: 0 auto;
+  padding: 40px;
+  border: 1px solid #aaa;
 }
 
 .user-form__attr {

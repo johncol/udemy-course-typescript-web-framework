@@ -1,8 +1,8 @@
 import { HtmlTemplate } from './../framework/view/View';
-import { EventlessView } from '../framework/view/EventlessView';
 import { UserProps, User } from './../model/User';
+import { SimpleView } from '../framework/view/SimpleView';
 
-export class UserInfo extends EventlessView<User, UserProps> {
+export class UserInfo extends SimpleView<User, UserProps> {
   template = (): HtmlTemplate => {
     return `
       <div>
