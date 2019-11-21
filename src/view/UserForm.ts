@@ -1,26 +1,8 @@
-import { User } from './../model/User';
-import { Events } from '../framework/model/Events';
+import { View, EventsMap } from './../framework/view/View';
+import { UserProps, User } from './../model/User';
 
-type EventsMap = { [key: string]: () => void };
-
-export class UserForm {
-  constructor(private parent: Element, private model: User) {
-    this.listenToModelChanges();
-  }
-
-  render = (): void => {
-    const template: HTMLTemplateElement = document.createElement('template');
-    template.innerHTML = this.template();
-    this.bindEvents(template.content);
-    this.parent.innerHTML = '';
-    this.parent.append(template.content);
-  };
-
-  private listenToModelChanges = (): void => {
-    this.model.on(Events.change, this.render);
-  };
-
-  private template = (): string => {
+export class UserForm extends View<User, UserProps> {
+  template = (): string => {
     return `
       <form class="user-form" autocomplete="off">
         <h1>User Form</h1>
@@ -43,17 +25,7 @@ export class UserForm {
     `;
   };
 
-  private bindEvents = (fragment: DocumentFragment): void => {
-    const eventsMap: EventsMap = this.eventsMap();
-    for (let key in eventsMap) {
-      const [event, selector] = key.split(':');
-      fragment.querySelectorAll(selector).forEach((element: Element) => {
-        element.addEventListener(event, eventsMap[key]);
-      });
-    }
-  };
-
-  private eventsMap = (): EventsMap => {
+  eventsMap = (): EventsMap => {
     return {
       'click:button[data-role="update-name"]': this.onSaveButtonClick,
       'click:button[data-role="random-age"]': this.onSetRandomAgeButtonClick,
