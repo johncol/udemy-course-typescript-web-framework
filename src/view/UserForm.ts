@@ -21,7 +21,8 @@ export class UserForm {
           <span>Age: </span><span>${this.model.get('age')}</span>
         </div>
         <input />
-        <button>Save</button>
+        <button data-role="save">Save</button>
+        <button data-role="random-age">Random Age</button>
       </div>
     `;
   };
@@ -38,11 +39,16 @@ export class UserForm {
 
   private eventsMap = (): EventsMap => {
     return {
-      'click:button': this.onButtonClick,
+      'click:button[data-role="save"]': this.onSaveButtonClick,
+      'click:button[data-role="random-age"]': this.onSetRandomAgeButtonClick,
     };
   };
 
-  private onButtonClick = (): void => {
+  private onSaveButtonClick = (): void => {
     console.log('Button Clicked!');
+  };
+
+  private onSetRandomAgeButtonClick = (): void => {
+    console.log('Random Age Button Clicked!');
   };
 }
