@@ -46,9 +46,10 @@ export class UserForm extends RegionlessView<User, UserProps> {
   };
 
   private getValueOf = (field: string): string => {
-    const inputElement: Element | null = this.parent.querySelector(`input[name="${field}"]`);
+    const elementSelector: string = `input[name="${field}"]`;
+    const inputElement: Element | null = this.parent.querySelector(elementSelector);
     if (!inputElement) {
-      throw new Error(`input[name="${field}"] not found`);
+      throw new Error(`${elementSelector} not found`);
     }
     return (inputElement as HTMLInputElement).value;
   };
